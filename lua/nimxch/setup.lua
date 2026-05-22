@@ -17,7 +17,7 @@ vim.opt.wrap = true
 
 
 -- colors
-vim.opt.termguicolors= true
+vim.opt.termguicolors = true
 
 -- scroll
 vim.opt.scrolloff = 0
