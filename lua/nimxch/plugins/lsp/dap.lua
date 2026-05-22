@@ -13,7 +13,7 @@ return {
 
   -- ── Async library required by nvim-dap-ui ──────────────────────────────────
   {
-    "nvim-nio/nvim-nio",
+    "nvim-neotest/nvim-nio",
   },
 
   -- ── DAP virtual text ───────────────────────────────────────────────────────
@@ -34,7 +34,7 @@ return {
     "rcarriga/nvim-dap-ui",
     dependencies = {
       "mfussenegger/nvim-dap",
-      "nvim-nio/nvim-nio",
+      "nvim-neotest/nvim-nio",
     },
     config = function()
       local dap    = require("dap")

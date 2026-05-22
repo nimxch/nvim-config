@@ -29,8 +29,7 @@ require("lazy").setup({
     -- import LSP plugin specs from lua/nimxch/plugins/lsp/
     { import = "nimxch.plugins.lsp" },
   },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  -- automatically check for plugin updates
+  -- Use SSH for all GitHub clones so HTTPS auth prompts never block installs
+  git = { url_format = "git@github.com:%s.git" },
   checker = { enabled = true },
 })
