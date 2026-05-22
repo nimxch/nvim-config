@@ -26,6 +26,8 @@ require("lazy").setup({
   spec = {
     -- import your plugins
     { import = "nimxch.plugins" },
+    -- import LSP plugin specs from lua/nimxch/plugins/lsp/
+    { import = "nimxch.plugins.lsp" },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
