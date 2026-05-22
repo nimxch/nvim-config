@@ -1,4 +1,3 @@
-print("setup loaded")
 -- cursore settings
 vim.opt.guicursor = ""
 

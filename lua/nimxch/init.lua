@@ -1,2 +1,2 @@
-print("Init loaded")
 require("nimxch.setup")
+require("nimxch.lazy")
