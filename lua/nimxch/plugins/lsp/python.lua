@@ -17,15 +17,19 @@ return {
     -- Lazy.nvim merges specs for the same plugin — this is intentional.
     event = "BufReadPre",
     config = function()
-      local lspconfig = require("lspconfig")
-      local lsp       = require("nimxch.lsp")  -- on_attach + capabilities
+      local lsp = require("nimxch.lsp")  -- on_attach + capabilities
 
-      lspconfig.pyright.setup({
+      -- nvim-lspconfig >= 0.11: `lspconfig.<server>.setup()` is deprecated in
+      -- favor of the native vim.lsp.config()/vim.lsp.enable() API. The plugin
+      -- still ships the default filetypes/root_markers for pyright; we only
+      -- override on_attach/capabilities/settings here.
+      vim.lsp.config("pyright", {
         on_attach    = lsp.on_attach,
         capabilities = lsp.capabilities,
         -- Pull in the analysis settings from the server-options table
         settings     = require("nimxch.lsp.python").settings,
       })
+      vim.lsp.enable("pyright")
     end,
   },
 

@@ -74,14 +74,17 @@ function M.get_config()
         -- ── Project root detection ────────────────────────────────────────
         -- jdtls.setup.find_root() walks upward from the current buffer's path
         -- looking for any of these marker files/directories.  The first match
-        -- becomes the project root; nil means "open file as standalone".
+        -- becomes the project root; nil means "open file as standalone", in
+        -- which case jdtls.start_or_attach() silently refuses to start.
+        -- Fall back to the current working directory so loose .java files
+        -- with no git/maven/gradle project still get an LSP server.
         root_dir = jdtls.setup.find_root({
             ".git",
             "mvnw",
             "gradlew",
             "pom.xml",
             "build.gradle",
-        }),
+        }) or vim.fn.getcwd(),
 
         -- ── Language server settings ──────────────────────────────────────
         settings = {
@@ -154,9 +157,10 @@ function M.get_config()
         -- Reuse the shared capability table (extended by nvim-cmp if present)
         capabilities = lsp.capabilities,
 
-        -- ── DAP / test extension bundles ──────────────────────────────────
+        -- ── DAP / test / Spring Boot extension bundles ─────────────────────
         -- jdtls can host additional Eclipse plug-ins via init_options.bundles.
-        -- Two Mason packages extend jdtls with debug and test capabilities:
+        -- Three Mason packages extend jdtls with debug, test, and Spring Boot
+        -- capabilities:
         --
         --   java-debug-adapter  → com.microsoft.java.debug.plugin-*.jar
         --     Implements the DAP adapter inside the jdtls JVM process so
@@ -165,8 +169,19 @@ function M.get_config()
         --   java-test           → a set of jars that expose test discovery,
         --     running, and result reporting via jdtls code lenses.
         --
-        -- Both packages are optional: if Mason has not installed them the
-        -- glob() calls return empty strings / empty lists and we just skip them.
+        --   spring-boot-tools   → jdt-ls-extension.jar + jdt-ls-commons.jar
+        --     Adds Spring Boot awareness to .java files: live application
+        --     hover, bean/request-mapping navigation, and boot run/debug
+        --     code lenses. (jdt-ls-extension.jar's manifest Require-Bundles
+        --     org.springframework.tooling.jdt.ls.commons, provided by
+        --     jdt-ls-commons.jar, so both must be loaded together.)
+        --     Property/YAML completion (application.properties/.yml) is a
+        --     *separate* standalone language server — see
+        --     lua/nimxch/lsp/spring_boot.lua.
+        --
+        -- All three packages are optional: if Mason has not installed them
+        -- the glob() calls return empty strings / empty lists and we just
+        -- skip them.
         init_options = {
             bundles = (function()
                 local bundles = {}
@@ -190,6 +205,17 @@ function M.get_config()
                     true    -- list  (return a Lua table, not a string)
                 )
                 vim.list_extend(bundles, test_jars)
+
+                -- spring-boot-tools: jdtls extension jar + its required
+                -- commons bundle
+                local spring_boot_jars = vim.fn.glob(
+                    vim.fn.stdpath("data")
+                    .. "/mason/packages/spring-boot-tools"
+                    .. "/extension/jars/jdt-ls-{extension,commons}.jar",
+                    true,
+                    true
+                )
+                vim.list_extend(bundles, spring_boot_jars)
 
                 return bundles
             end)(),

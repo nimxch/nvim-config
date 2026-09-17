@@ -14,6 +14,7 @@ return {
                 enabled = true,
                 show_start = true,
                 show_end = false,
+                char = "│",
             },
 
             -- Indent guide character and highlight
@@ -29,9 +30,6 @@ return {
                 highlight = "IblWhitespace",
                 remove_blankline_trail = true,
             },
-
-            -- Scope lines (current indentation block)
-            scope_char = "│",
         })
     end,
 }

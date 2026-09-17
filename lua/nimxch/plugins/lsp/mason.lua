@@ -4,7 +4,10 @@
 -- servers installed via Mason are automatically available to lspconfig.
 --
 -- NOTE: jdtls (Java) is intentionally excluded here — it is managed by the
--- nvim-jdtls plugin which has its own lifecycle handling.
+-- nvim-jdtls plugin which has its own lifecycle handling. Its companion
+-- packages (java-debug-adapter, java-test, spring-boot-tools) are likewise
+-- installed manually:
+--   :MasonInstall jdtls java-debug-adapter java-test spring-boot-tools
 
 return {
   -- Mason: the package manager for LSP servers and other external tools
@@ -28,8 +31,9 @@ return {
       require("mason-lspconfig").setup({
         -- Servers to install automatically (jdtls handled separately by nvim-jdtls)
         ensure_installed = {
-          "pyright", -- Python
-          "gopls",   -- Go
+          "pyright",       -- Python
+          "ts_ls",         -- TypeScript / JavaScript
+          "rust_analyzer", -- Rust
         },
       })
     end,
