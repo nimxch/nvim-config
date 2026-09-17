@@ -1,5 +1,13 @@
--- todo-comments.nvim: Highlight and search TODO, FIXME, HACK, WARN, NOTE, PERF comments
--- Integrates with Telescope for easy searching and navigation through code comments
+-- lua/nimxch/plugins/todo-comments.lua
+-- todo-comments.nvim: highlights TODO/FIXME/HACK/WARN/NOTE/PERF comments
+-- in-buffer via a virtual-text sign, using treesitter to only match inside
+-- actual comments (not strings or prose).
+--
+-- <leader>ft runs :TodoTelescope, the picker todo-comments registers to
+-- search all such markers project-wide. This only lists "plenary.nvim" as a
+-- dependency here — :TodoTelescope itself is provided by telescope.nvim
+-- (see plugins/telescope.lua), so that plugin must also be loaded for the
+-- keymap below to work; it isn't declared as a dependency of this spec.
 return {
     "folke/todo-comments.nvim",
     event = "VeryLazy",

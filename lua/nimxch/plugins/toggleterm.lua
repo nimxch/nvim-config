@@ -1,3 +1,11 @@
+-- lua/nimxch/plugins/toggleterm.lua
+-- toggleterm.nvim: persistent, toggleable terminal windows (float, split,
+-- or vertical), as an alternative to plain :terminal — terminals survive
+-- being hidden/toggled instead of being killed on window close.
+--
+-- WHY open_mapping = false: toggleterm's built-in default mapping is
+-- disabled so the explicit keymaps below (own <C-\> / <leader>th) are the
+-- single source of truth instead of two overlapping bindings.
 return {
     "akinsho/toggleterm.nvim",
     version = "*",

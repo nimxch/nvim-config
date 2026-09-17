@@ -1,5 +1,14 @@
--- which-key.nvim: Show available keybindings after leader key pause
--- Displays popup menu with registered keybindings and group labels
+-- lua/nimxch/plugins/which-key.lua
+-- which-key.nvim: after pressing <leader> (or any prefix key) and pausing,
+-- pops up a menu of the keys that can follow, labeled with their `desc`.
+-- This file both configures the popup and is where those `desc` labels for
+-- keymaps defined elsewhere (keymaps.lua, LSP on_attach, other plugin
+-- specs) get registered as group headings via wk.add() below — it doesn't
+-- define the underlying mappings itself, only documents/groups them.
+--
+-- WHY event = "VeryLazy": which-key only needs to exist by the time the
+-- user pauses on a prefix key, which is always after startup — deferring it
+-- keeps it off the critical startup path.
 return {
     "folke/which-key.nvim",
     event = "VeryLazy",

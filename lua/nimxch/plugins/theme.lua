@@ -1,5 +1,17 @@
--- This used to mange theme
+-- lua/nimxch/plugins/theme.lua
+-- Colorscheme: tokyonight (storm variant), applied via vim.cmd.colorscheme
+-- at the end of setup() so it takes effect immediately on load.
 --
+-- Notable non-default options:
+--   transparent = true  → background left unset, so the terminal's own
+--                         background shows through (relies on the terminal
+--                         emulator being configured for transparency/theming;
+--                         tokyonight itself does not draw a background).
+--   comments/keywords italic = false → default tokyonight italicizes these;
+--                         disabled here purely as a font/style preference.
+--   sidebars/floats = "dark" → gives nvim-tree, telescope, and floating
+--                         windows (LSP hover, toggleterm, etc.) a slightly
+--                         darker panel background than the main editor area.
 
 return {
 

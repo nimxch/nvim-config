@@ -1,3 +1,8 @@
+-- lua/nimxch/keymaps.lua
+-- Global keymaps, grouped by purpose. Buffer-local LSP keymaps (gd, gr, K,
+-- <leader>rn, etc.) live in lua/nimxch/lsp/init.lua's on_attach instead —
+-- the ones here are process-wide fallbacks/extras, not LSP-gated.
+--
 -- Leader key set here AND in lazy.lua (lazy.lua takes effect for plugins,
 -- this covers anything loaded before lazy initializes)
 vim.g.mapleader = " "
@@ -44,6 +49,10 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux new tmux-sessionizer<CR>")
 
 -- ── LSP ──────────────────────────────────────────────────────────────────────
+-- Global fallbacks: buffers with an attached LSP client get buffer-local
+-- versions of gd/K/<leader>rn (and more) from on_attach in
+-- lua/nimxch/lsp/init.lua, which take precedence over these. These global
+-- ones only matter for buffers with no LSP client attached.
 vim.keymap.set("n", "<leader>f",  vim.lsp.buf.format)       -- format buffer
 vim.keymap.set("n", "gd",         vim.lsp.buf.definition)   -- go to definition
 vim.keymap.set("n", "K",          vim.lsp.buf.hover)        -- show docs

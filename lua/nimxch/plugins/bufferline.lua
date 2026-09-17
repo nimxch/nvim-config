@@ -1,3 +1,14 @@
+-- lua/nimxch/plugins/bufferline.lua
+-- bufferline.nvim: renders a tab/buffer bar along the top of the window,
+-- with LSP diagnostic counts per tab and a dedicated slot for the file
+-- explorer sidebar (see `offsets` below).
+--
+-- WHY mode = "tabs" instead of the default "buffers": this config only
+-- shows one entry per Vim *tabpage* rather than one per open buffer, so the
+-- bar stays a small, stable set of workspaces instead of growing with every
+-- file you've ever opened in the session.
+--
+-- nvim-web-devicons supplies the per-filetype icons shown next to each tab.
 return {
     "akinsho/bufferline.nvim",
     version = "*",
@@ -16,11 +27,14 @@ return {
                 -- Diagnostics integration with LSP
                 diagnostics = "nvim_lsp", -- | "coc" | "ale" | "quickfix" | false,
                 diagnostics_update_in_insert = false,
+                -- Default indicator shows an icon per severity; this collapses
+                -- it to a plain "(N)" count to keep tabs narrow.
                 diagnostics_indicator = function(count, level, diagnostics_dict, context)
                     return "("..count..")"
                 end,
 
-                -- Appearance
+                -- Reserves a labeled column the width of the nvim-tree sidebar
+                -- so the bufferline doesn't render underneath/behind it.
                 offsets = {
                     {
                         filetype = "NvimTree",
@@ -39,6 +53,8 @@ return {
 
                 -- Enforce item ordering
                 enforce_regular_tabs = false,
+                -- Keep the bar visible even with a single tab/buffer open,
+                -- so the layout doesn't shift when a second one is created.
                 always_show_bufferline = true,
 
                 -- Hover preview

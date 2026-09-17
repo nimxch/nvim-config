@@ -1,7 +1,9 @@
 -- lua/nimxch/plugins/lsp/dap.lua
 -- Shared DAP (Debug Adapter Protocol) infrastructure.
 -- Provides the core engine, UI panels, and virtual-text variable display used
--- by all language-specific debugger configs (Python, Go, Java).
+-- by language-specific debugger configs (currently Python via nvim-dap-python
+-- and Java via nvim-jdtls's setup_dap()). Rust and TypeScript are LSP-only in
+-- this config — neither has a DAP adapter wired in.
 
 return {
   -- ── Core DAP engine ────────────────────────────────────────────────────────

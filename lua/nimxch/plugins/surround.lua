@@ -1,6 +1,8 @@
--- Surround text with brackets, quotes, tags, etc.
+-- lua/nimxch/plugins/surround.lua
+-- nvim-surround: add/change/delete surrounding pairs (brackets, quotes,
+-- tags) around a motion or text object.
 -- Default keymaps: ys (add), cs (change), ds (delete)
--- Works with motions and text objects for flexible text wrapping
+-- setup({}) uses the plugin's built-in defaults as-is — no overrides needed.
 return {
     'kylechui/nvim-surround',
     event = "VeryLazy",

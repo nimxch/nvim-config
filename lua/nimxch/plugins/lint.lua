@@ -1,5 +1,19 @@
--- nvim-lint - code linter integration
--- Provides automatic and manual linting for multiple filetypes
+-- lua/nimxch/plugins/lint.lua
+-- nvim-lint: runs external linter CLIs (eslint_d, pylint, shellcheck) and
+-- publishes their output as native vim.diagnostic entries.
+--
+-- WHY A SEPARATE PLUGIN — lint vs format vs LSP diagnostics are three
+-- distinct concerns in this config, each owned by a different tool:
+--   • nvim-lint (this file)      — style/correctness *linters* per filetype,
+--                                  run on save/read, e.g. eslint_d, pylint.
+--   • conform.nvim (conform.lua) — code *formatters*, rewrite the buffer.
+--   • LSP servers (plugins/lsp/) — diagnostics that come from the language
+--                                  server itself (type errors, jdtls/pyright
+--                                  problems), always-on while attached.
+-- A linter and its filetype's LSP server often overlap (e.g. pyright already
+-- flags some issues pylint does), but linters catch style/lint rules LSPs
+-- don't enforce, so both run side by side and diagnostics merge in the
+-- sign column / virtual text.
 
 return {
   "mfussenegger/nvim-lint",
@@ -7,7 +21,10 @@ return {
   config = function()
     local lint = require("lint")
 
-    -- Configure linters per filetype
+    -- One or more linter CLIs per filetype; nvim-lint runs all of them and
+    -- merges their output. Each binary (eslint_d, pylint, shellcheck) must
+    -- be installed/on PATH separately — nvim-lint only runs them, it does
+    -- not install them (unlike Mason-managed LSP servers).
     lint.linters_by_ft = {
       javascript = { "eslint_d" },
       typescript = { "eslint_d" },

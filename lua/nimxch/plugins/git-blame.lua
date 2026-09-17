@@ -1,20 +1,23 @@
--- SHow git blame in-line
+-- lua/nimxch/plugins/git-blame.lua
+-- git-blame.nvim: shows the blame info (author, date, commit summary) for
+-- the current line as virtual text at the end of the line, updated as the
+-- cursor moves.
+--
+-- WHY event = "VeryLazy": defers loading until after startup so it never
+-- delays opening the first buffer; it's a passive, always-on display rather
+-- than something triggered by a keymap, so there's no `keys` table gating it.
+
 return {
     "f-person/git-blame.nvim",
-    -- load the plugin at startup
     event = "VeryLazy",
-    -- Because of the keys part, you will be lazy loading this plugin.
-    -- The plugin will only load once one of the keys is used.
-    -- If you want to load the plugin at startup, add something like event = "VeryLazy",
-    -- or lazy = false. One of both options will work.
     opts = {
-        -- your configuration comes here
-        -- for example
-        enabled = true, -- if you want to enable the plugin
-        message_template = " <summary> • <date> • <author> • <<sha>>", -- template for the blame message, check the Message template section for more options
-        date_format = "%m-%d-%Y %H:%M:%S", -- template for the date, check Date format section for more options
-        virtual_text_column = 1, -- virtual text start column, check Start virtual text at column section for more options
+        enabled = true,
+        -- Blame line format: summary • date • author • short SHA
+        message_template = " <summary> • <date> • <author> • <<sha>>",
+        date_format = "%m-%d-%Y %H:%M:%S",
+        -- Column virtual text starts at; 1 keeps it flush after the code
+        -- rather than aligned to a fixed screen column.
+        virtual_text_column = 1,
     },
-
 }
 

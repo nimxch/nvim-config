@@ -1,3 +1,12 @@
+-- lua/nimxch/plugins/lualine.lua
+-- lualine: statusline showing mode, git branch/diff, LSP diagnostics,
+-- filename, filetype, and cursor location. `theme = 'auto'` matches
+-- whatever colorscheme is active (see theme.lua) instead of a fixed palette.
+--
+-- The options/sections below mostly spell out lualine's own defaults
+-- explicitly rather than relying on them implicitly, so this file stays the
+-- one place the statusline's shape is defined even if plugin defaults
+-- change on update.
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },

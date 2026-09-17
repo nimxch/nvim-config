@@ -1,3 +1,7 @@
+-- lua/nimxch/lazy.lua
+-- Bootstraps lazy.nvim (cloning it on first run) and loads every plugin spec
+-- under lua/nimxch/plugins/ and lua/nimxch/plugins/lsp/.
+--
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -31,5 +35,7 @@ require("lazy").setup({
   },
   -- Use SSH for all GitHub clones so HTTPS auth prompts never block installs
   git = { url_format = "git@github.com:%s.git" },
+  -- Periodically check installed plugins against upstream and notify when
+  -- updates are available (does not auto-install them)
   checker = { enabled = true },
 })

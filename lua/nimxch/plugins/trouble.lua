@@ -1,5 +1,12 @@
--- trouble.nvim: VSCode-style problems panel for diagnostics
--- Shows LSP diagnostics, warnings, and errors in a focused panel view
+-- lua/nimxch/plugins/trouble.lua
+-- trouble.nvim: VSCode-style problems panel — lists LSP diagnostics in a
+-- dedicated, navigable window instead of only inline virtual text/signs.
+--
+-- auto_open/auto_close = false: the panel only appears via the explicit
+-- keymaps below, never automatically on new diagnostics — avoids the panel
+-- popping open unprompted while editing.
+-- follow = true: panel selection follows the cursor as you move through the
+-- buffer, so it stays in sync without manual re-triggering.
 return {
     "folke/trouble.nvim",
     event = "VeryLazy",
