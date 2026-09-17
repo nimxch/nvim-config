@@ -4,15 +4,16 @@
 -- actual comments (not strings or prose).
 --
 -- <leader>ft runs :TodoTelescope, the picker todo-comments registers to
--- search all such markers project-wide. This only lists "plenary.nvim" as a
--- dependency here — :TodoTelescope itself is provided by telescope.nvim
--- (see plugins/telescope.lua), so that plugin must also be loaded for the
--- keymap below to work; it isn't declared as a dependency of this spec.
+-- search all such markers project-wide. That command is provided by
+-- telescope.nvim (see plugins/telescope.lua), so it's declared here as a
+-- dependency alongside plenary.nvim to guarantee it's loaded before the
+-- keymap below is used.
 return {
     "folke/todo-comments.nvim",
     event = "VeryLazy",
     dependencies = {
         "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
     },
     config = function()
         require("todo-comments").setup({})
