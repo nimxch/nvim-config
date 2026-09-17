@@ -2,6 +2,10 @@
 
 Leader key: `Space`
 
+> This is a quick lookup cheat sheet. `README.md`'s [Keybindings](README.md#keybindings) section
+> is the authoritative, fuller reference (LSP per-language extras, DAP, git, diagnostics, etc.) —
+> if the two ever disagree, trust the README.
+
 ## File Explorer (nvim-tree)
 
 | Key | Action |
@@ -24,8 +28,11 @@ Leader key: `Space`
 |-----|--------|
 | `gd` | Go to definition |
 | `K` | Show hover docs |
-| `<leader>f` | Format current buffer |
+| `<leader>fm` | Format current buffer (conform.nvim) |
 | `<leader>rn` | Rename symbol |
+
+`<leader>f` (no `m`) is a separate plain-LSP-format fallback for buffers with no formatter
+configured — see README.md's note on this.
 
 ## Navigation
 
@@ -68,12 +75,6 @@ Used by LSP diagnostics, grep results, etc.
 | Key | Action |
 |-----|--------|
 | `<leader>s` | Search & replace word under cursor (edit before Enter) |
-
-## Go Snippets
-
-| Key | Action |
-|-----|--------|
-| `<leader>ee` | Insert `if err != nil { return err }` below cursor |
 
 ## Misc
 

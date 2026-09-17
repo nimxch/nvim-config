@@ -32,8 +32,18 @@ M.on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 end
 
--- capabilities: base client capabilities, extended later by nvim-cmp.
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities: base client capabilities extended with blink.cmp's (richer
+-- completion-item resolution, snippet support, etc. — see
+-- plugins/completion.lua). Every per-language LSP config builds its
+-- vim.lsp.config() call from this shared table, so this is the one place
+-- that needs to change for completion capabilities to reach all of them.
+--
+-- WHY require("blink.cmp") is safe here regardless of load order: lazy.nvim
+-- intercepts require() for any plugin it manages and force-loads it
+-- synchronously on first use, independent of that plugin's own lazy-loading
+-- trigger (blink.cmp's is `event = "InsertEnter"`) — the same mechanism
+-- plugins/telescope.lua and plugins/todo-comments.lua already rely on.
+M.capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Configure diagnostic display globally.
 vim.diagnostic.config({

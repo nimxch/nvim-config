@@ -52,13 +52,9 @@
   - `rcarriga/nvim-dap-ui` ✓
   - `nvim-dap-python`, `nvim-dap-go` ✓
   - Java DAP via `java-debug-adapter` bundles ✓
-- [ ] **Autocompletion** — nvim-cmp not yet configured
-  - `hrsh7th/nvim-cmp` — completion engine
-  - `hrsh7th/cmp-nvim-lsp` — LSP source
-  - `hrsh7th/cmp-buffer`, `hrsh7th/cmp-path`
-- [ ] **Snippets**
-  - `L3MON4D3/LuaSnip` + `saadparwaiz1/cmp_luasnip`
-  - `rafamadriz/friendly-snippets`
+- [x] **Autocompletion** — `saghen/blink.cmp` configured (`plugins/completion.lua`), capabilities
+  merged into `lsp/init.lua`'s shared `M.capabilities`
+  - [x] Snippets — blink.cmp's built-in engine + `rafamadriz/friendly-snippets`
 
 ---
 
@@ -95,12 +91,11 @@ pyright and gopls install automatically via mason-lspconfig.
 
 ---
 
-## After autocompletion (nvim-cmp) is set up
+## Autocompletion — done
 
-- Extend `lsp/init.lua` `M.capabilities` with `cmp_nvim_lsp.default_capabilities()`
-- trouble.nvim will show real diagnostics
-- bufferline error counts will appear
-- conform.nvim will pick up LSP formatters
+- `lsp/init.lua`'s `M.capabilities` now extends `require("blink.cmp").get_lsp_capabilities(...)`
+- trouble.nvim / bufferline diagnostic counts and conform's LSP fallback were already sourced
+  from the same shared capabilities table, so no further wiring was needed there
 
 ---
 

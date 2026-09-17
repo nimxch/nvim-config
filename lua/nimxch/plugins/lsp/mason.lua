@@ -5,9 +5,11 @@
 --
 -- NOTE: jdtls (Java) is intentionally excluded here — it is managed by the
 -- nvim-jdtls plugin which has its own lifecycle handling. Its companion
--- packages (java-debug-adapter, java-test, spring-boot-tools) are likewise
--- installed manually:
---   :MasonInstall jdtls java-debug-adapter java-test spring-boot-tools
+-- packages (java-debug-adapter, java-test, spring-boot-tools), debugpy
+-- (Python DAP, see plugins/lsp/python.lua), and the formatter/linter CLIs
+-- conform.nvim/nvim-lint shell out to (black, prettierd, eslint_d, pylint,
+-- shellcheck) are likewise not auto-installed here — see README.md's
+-- "Install LSP servers & tools" section for the full manual install command.
 
 return {
   -- Mason: the package manager for LSP servers and other external tools

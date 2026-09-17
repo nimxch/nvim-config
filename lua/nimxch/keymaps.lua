@@ -70,10 +70,6 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 -- Populate substitute command with word under cursor, cursor left of flags to edit
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
--- ── Go Snippets ──────────────────────────────────────────────────────────────
--- Insert idiomatic Go error-check block below current line
-vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
-
 -- ── Misc ─────────────────────────────────────────────────────────────────────
 -- Re-source current file (useful when editing config live)
 vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end)

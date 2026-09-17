@@ -32,12 +32,16 @@ return {
         sh = { "shfmt" },
         bash = { "shfmt" },
       },
-      -- Runs conform on every write. async + lsp_fallback mean: format
-      -- without blocking the UI, and if no formatter is configured for this
-      -- filetype, ask the attached LSP server to format instead.
+      -- Runs conform synchronously on every write (format_on_save hooks
+      -- BufWritePre and must finish before the write proceeds, so the
+      -- formatted result is what actually gets saved — conform.nvim hard-
+      -- errors if `async = true` is passed here: "cannot use async=true.
+      -- Use format_after_save instead." async is fine for the one-off
+      -- <leader>fm keymap below since that isn't gating a write).
+      -- lsp_fallback: if no formatter is configured for this filetype, ask
+      -- the attached LSP server to format instead.
       format_on_save = {
         timeout_ms = 3000,
-        async = true,
         lsp_fallback = true,
       },
     })
